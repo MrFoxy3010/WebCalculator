@@ -125,7 +125,7 @@
 		}
 
 		.menu {
-			position: absolute;
+			position: fixed;
 			width: 100%;
 			height: 100%;
 			backdrop-filter: blur(5px);
@@ -211,253 +211,280 @@
 	</style>
 </head>
 <body>
-	<div id="menu" class="menu starthide">
-
-	</div>
+	<!--<div id="menu" class="menu starthide">
+		<div>Hello World</div>
+	</div>-->
 	<div id="drophandler">
-		<button id="settings">
+		<!--<button id="settings">
 			<svg viewBox="0 0 24 24" id="ines"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" fill="currentColor" fill-rule="evenodd"></path></svg>
-		</button>
+		</button>-->
 		<button id="close">X</button>
 	</div>
-	<div class="container">
-		<div class="response">
-			<input readonly type="input" value="0" id="response">
+		<div class="container">
+			<div class="response">
+				<input readonly type="input" value="0" id="response">
+			</div>
+			<div class="buttons">
+				<button id="mod">%</button>
+				<button id="clear">CE</button>
+				<button id="clearall">C</button>
+				<button id="erase">←</button>
+				<button id="onediv">1/x</button>
+				<button id="sqr">x²</button>
+				<button id="sqrt">√x</button>
+				<button id="division">÷</button>
+				<button id="num7">7</button>
+				<button id="num8">8</button>
+				<button id="num9">9</button>
+				<button id="multiplication">×</button>
+				<button id="num4">4</button>
+				<button id="num5">5</button>
+				<button id="num6">6</button>
+				<button id="subtraction">-</button>
+				<button id="num1">1</button>
+				<button id="num2">2</button>
+				<button id="num3">3</button>
+				<button id="addition">+</button>
+				<button id="sign">+/-</button>
+				<button id="num0">0</button>
+				<button id="point">,</button>
+				<button id="equal">=</button>
+			</div>
 		</div>
-		<div class="buttons">
-			<button id="mod">%</button>
-			<button id="clear">CE</button>
-			<button id="clearall">C</button>
-			<button id="erase">←</button>
-			<button id="onediv">1/x</button>
-			<button id="sqr">x²</button>
-			<button id="sqrt">√x</button>
-			<button id="division">÷</button>
-			<button id="num7">7</button>
-			<button id="num8">8</button>
-			<button id="num9">9</button>
-			<button id="multiplication">×</button>
-			<button id="num4">4</button>
-			<button id="num5">5</button>
-			<button id="num6">6</button>
-			<button id="subtraction">-</button>
-			<button id=num1>1</button>
-			<button id="num2">2</button>
-			<button id="num3">3</button>
-			<button id="addition">+</button>
-			<button id="sign">+/-</button>
-			<button id="num0">0</button>
-			<button id="point">,</button>
-			<button id="equal">=</button>
-		</div>
-	</div>
-	<script type="text/javascript">
-		class Calculator {
-			constructor() {
-				this.action = "";
-				this.one_param = "";
-				this.two_param = "";
-				this.text_response = "";
-				this.response = 0;
-			}
-			digitClick(index) {
-				if (this.text_response == '0') {
-					this.text_response = index.toString();
-				}
-				else if (this.action == '') {
-					this.text_response += index;
-				}
-				else {
-					this.two_param += index;
-					this.text_response += index;
-				}
-				return this.text_response;
-			}
-			pointClick() {
-				let count_point = this.text_response.split('.').length - 1;
-				if (this.one_param === '' && count_point == 0) {
-					this.text_response += '.';
-				}
-				else if (two_param !== '') {
-					let count_point = this.two_param.split('.').length - 1;
-					if (count_point == 0) {
-						this.text_response += '.';
-						this.two_param += '.';
-					}
-				}
-				return this.text_response;
-			}
-			actionClick(type) {
-				switch (this.action) {
-					case 'addition':
-						this.response = parseFloat(this.one_param) + parseFloat(this.two_param);
-						break;
-					case 'subtraction':
-						this.response = parseFloat(this.one_param) - parseFloat(this.two_param);
-						break;
-					case 'division':
-						this.response = parseFloat(this.one_param) / parseFloat(this.two_param);
-						break;
-					case 'multiplication':
-						this.response = parseFloat(this.one_param) * parseFloat(this.two_param);
-						break;
-					case 'mod':
-						this.response = parseFloat(this.one_param) % parseFloat(this.two_param);
-						break;
-				}
-				this.one_param = this.text_response;
-				if (this.action != "") {
-					this.one_param = this.response.toString();
-					this.text_response = this.one_param;
-				}
-				this.two_param = '';
-				switch (type) {
-					case 'addition':
-						this.text_response += '+';
-						break;
-					case 'subtraction':
-						this.text_response += '-';
-						break;
-					case 'division':
-						this.text_response += '÷';
-						break;
-					case 'multiplication':
-						this.text_response += '×';
-						break;
-					case 'mod':
-						this.text_response += '%';
-						break;
-				}
-				this.action = type;
-				return this.text_response;
-			}
-			signClick() {
-				if (this.text_response[0] != '-') {
-					this.text_response = '-' + this.text_response;
-				}
-				else {
-					this.text_response = this.text_response.slice(1);
-				}
-				return this.text_response;
-			}
-			equalClick() {
-				switch (this.action) {
-					case 'addition':
-						this.response = parseFloat(this.one_param) + parseFloat(this.two_param);
-						break;
-					case 'subtraction':
-						this.response = parseFloat(this.one_param) - parseFloat(this.two_param);
-						break;
-					case 'division':
-						this.response = parseFloat(this.one_param) / parseFloat(this.two_param);
-						break;
-					case 'multiplication':
-						this.response = parseFloat(this.one_param) * parseFloat(this.two_param);
-						break;
-					case 'mod':
-						this.response = parseFloat(this.one_param) % parseFloat(this.two_param);
-						break;
-				}
-				this.one_param = "";
-				this.two_param = "";
-				this.action = "";
-				this.text_response = this.response.toString();
-				return this.text_response;
-			}
-			funcMathClick(type) {
-				if (this.one_param === "") {
-					switch (type) {
-						case 'sqrt':
-							this.one_param = Math.sqrt(parseFloat(this.text_response)).toString();
-							break;
-						case 'sqr':
-							this.one_param = (parseFloat(this.text_response) * parseFloat(this.text_response)).toString();
-							break;
-						case 'onediv':
-							this.one_param = (1 / parseFloat(this.text_response)).toString();
-							break;
-					}
-					this.text_response = this.one_param;
+		<script type="text/javascript">
+			class Calculator {
+				constructor() {
+					this.action = "";
 					this.one_param = "";
+					this.two_param = "";
+					this.text_response = "";
+					this.response = 0;
 				}
-				else {
-					this.text_response = this.text_response.substring(0, this.text_response.length - this.two_param.length);
-					switch (type) {
-						case 'sqrt':
-							this.two_param = Math.sqrt(parseFloat(this.two_param)).toString();
+				digitClick(index) {
+					if (this.text_response == '0') {
+						this.text_response = index.toString();
+					}
+					else if (this.action == '') {
+						this.text_response += index;
+					}
+					else {
+						this.two_param += index;
+						this.text_response += index;
+					}
+					return this.text_response;
+				}
+				pointClick() {
+					let count_point = this.text_response.split('.').length - 1;
+					if (this.one_param === '' && count_point == 0) {
+						this.text_response += '.';
+					}
+					else if (two_param !== '') {
+						let count_point = this.two_param.split('.').length - 1;
+						if (count_point == 0) {
+							this.text_response += '.';
+							this.two_param += '.';
+						}
+					}
+					return this.text_response;
+				}
+				actionClick(type) {
+					switch (this.action) {
+						case 'addition':
+							this.response = parseFloat(this.one_param) + parseFloat(this.two_param);
 							break;
-						case 'sqr':
-							this.two_param = (parseFloat(this.two_param) * parseFloat(this.two_param)).toString();
+						case 'subtraction':
+							this.response = parseFloat(this.one_param) - parseFloat(this.two_param);
 							break;
-						case 'onediv':
-							this.two_param = (1 / parseFloat(this.two_param)).toString();
+						case 'division':
+							this.response = parseFloat(this.one_param) / parseFloat(this.two_param);
+							break;
+						case 'multiplication':
+							this.response = parseFloat(this.one_param) * parseFloat(this.two_param);
+							break;
+						case 'mod':
+							this.response = parseFloat(this.one_param) % parseFloat(this.two_param);
 							break;
 					}
-					this.text_response += this.two_param;
-				}
-				return this.text_response;
-			}
-			clearClick() {
-				if (this.two_param.length > 0) {
-					this.text_response = this.text_response.substring(0, this.text_response.length - this.two_param.length);
+					this.one_param = this.text_response;
+					if (this.action != "") {
+						this.one_param = this.response.toString();
+						this.text_response = this.one_param;
+					}
 					this.two_param = "";
+					switch (type) {
+						case 'addition':
+							this.text_response += "+";
+							break;
+						case 'subtraction':
+							this.text_response += "-";
+							break;
+						case 'division':
+							this.text_response += "÷";
+							break;
+						case 'multiplication':
+							this.text_response += "×";
+							break;
+						case 'mod':
+							this.text_response += "%";
+							break;
+					}
+					this.action = type;
+					return this.text_response;
+				}
+				signClick() {
+					if (this.text_response[0] != "-") {
+						this.text_response = "-" + this.text_response;
+					}
+					else {
+						this.text_response = this.text_response.slice(1);
+					}
+					return this.text_response;
+				}
+				equalClick() {
+					switch (this.action) {
+						case 'addition':
+							this.response = parseFloat(this.one_param) + parseFloat(this.two_param);
+							break;
+						case 'subtraction':
+							this.response = parseFloat(this.one_param) - parseFloat(this.two_param);
+							break;
+						case 'division':
+							this.response = parseFloat(this.one_param) / parseFloat(this.two_param);
+							break;
+						case 'multiplication':
+							this.response = parseFloat(this.one_param) * parseFloat(this.two_param);
+							break;
+						case 'mod':
+							this.response = parseFloat(this.one_param) % parseFloat(this.two_param);
+							break;
+					}
+					this.one_param = "";
+					this.two_param = "";
+					this.action = "";
+					this.text_response = this.response.toString();
+					return this.text_response;
+				}
+				funcMathClick(type) {
+					if (this.one_param === "") {
+						switch (type) {
+							case 'sqrt':
+								this.one_param = Math.sqrt(parseFloat(this.text_response)).toString();
+								break;
+							case 'sqr':
+								this.one_param = (parseFloat(this.text_response) * parseFloat(this.text_response)).toString();
+								break;
+							case 'onediv':
+								this.one_param = (1 / parseFloat(this.text_response)).toString();
+								break;
+						}
+						this.text_response = this.one_param;
+						this.one_param = "";
+					}
+					else {
+						this.text_response = this.text_response.substring(0, this.text_response.length - this.two_param.length);
+						switch (type) {
+							case 'sqrt':
+								this.two_param = Math.sqrt(parseFloat(this.two_param)).toString();
+								break;
+							case 'sqr':
+								this.two_param = (parseFloat(this.two_param) * parseFloat(this.two_param)).toString();
+								break;
+							case 'onediv':
+								this.two_param = (1 / parseFloat(this.two_param)).toString();
+								break;
+						}
+						this.text_response += this.two_param;
+					}
+					return this.text_response;
+				}
+				clearClick() {
+					if (this.two_param.length > 0) {
+						this.text_response = this.text_response.substring(0, this.text_response.length - this.two_param.length);
+						this.two_param = "";
+					}
+					else {
+						return this.clearAllClick();
+					}
+					return this.text_response;
+				}
+				clearAllClick() {
+					this.text_response = "0";
+					this.one_param = "";
+					this.two_param = "";
+					this.action = "";
+					this.response = 0;
+					return this.text_response;
+				}
+				eraseClick() {
+					if (this.text_response[this.text_response.length - 1] < '0' || this.text_response[this.text_response.length - 1] > '9') {
+						this.action = "";
+					}
+					this.text_response = this.text_response.substring(0, this.text_response.length - 1);
+					return this.text_response;
+				}
+			}
+
+			document.addEventListener('click', function (event) {
+				let jsonObject = { Key: 'click', Value: event.target.name || event.target.id || event.target.tagName || "Unkown" };
+				window.chrome.webview.postMessage(jsonObject);
+			});
+
+			let calc = new Calculator();
+
+			for (let i = 0; i <= 9; i++) { document.getElementById("num" + i).addEventListener('click', function () { document.getElementById('response').value = calc.digitClick(i) }, false); }
+			document.getElementById('point').onclick = function () { document.getElementById('response').value = calc.pointClick() };
+			document.getElementById('addition').onclick = function () { document.getElementById('response').value = calc.actionClick('addition') };
+			document.getElementById('subtraction').onclick = function () { document.getElementById('response').value = calc.actionClick('subtraction') };
+			document.getElementById('division').onclick = function () { document.getElementById('response').value = calc.actionClick('division') };
+			document.getElementById('multiplication').onclick = function () { document.getElementById('response').value = calc.actionClick('multiplication') };
+			document.getElementById('mod').onclick = function () { document.getElementById('response').value = calc.actionClick('mod') };
+			document.getElementById('sign').onclick = function () { document.getElementById('response').value = calc.signClick() };
+			document.getElementById('equal').onclick = function () { document.getElementById('response').value = calc.equalClick() };
+			document.getElementById('sqrt').onclick = function () { document.getElementById('response').value = calc.funcMathClick('sqrt') };
+			document.getElementById('sqr').onclick = function () { document.getElementById('response').value = calc.funcMathClick('sqr') };
+			document.getElementById('onediv').onclick = function () { document.getElementById('response').value = calc.funcMathClick('onediv') };
+			document.getElementById('clear').onclick = function () { document.getElementById('response').value = calc.clearClick() };
+			document.getElementById('clearall').onclick = function () { document.getElementById('response').value = calc.clearAllClick() };
+			document.getElementById('erase').onclick = function () { document.getElementById('response').value = calc.eraseClick() };
+
+			document.addEventListener('keydown', function (event) {
+				if (event.key >= '0' && event.key <= '9') {
+					document.getElementById('response').value = calc.digitClick(Number(event.key));
+				}
+				else if (event.key == '+') {
+					document.getElementById('response').value = calc.actionClick('addition');
+				}
+				else if (event.key == '-') {
+					document.getElementById('response').value = calc.actionClick('subtraction');
+				}
+				else if (event.key == '/') {
+					document.getElementById('response').value = calc.actionClick('division');
+				}
+				else if (event.key == '*') {
+					document.getElementById('response').value = calc.actionClick('multiplication');
+				}
+				else if (event.key == '%') {
+					document.getElementById('response').value = calc.actionClick('mod');
+				}
+				else if (event.key == 'Backspace') {
+					document.getElementById('response').value = calc.eraseClick();
+				}
+				else if (event.key == 'Enter') {
+					document.getElementById('response').value = calc.equalClick();
+				}
+			});
+
+			document.getElementById('settings').onclick = function () {
+				if (document.getElementById("menu").classList.contains("hide") || document.getElementById("menu").classList.contains("starthide")) {
+					document.getElementById("menu").classList.remove("starthide");
+					document.getElementById("menu").classList.remove("hide");
+					document.getElementById("menu").classList.add("show");
 				}
 				else {
-					return this.clearAllClick();
+					document.getElementById("menu").classList.remove("show");
+					document.getElementById("menu").classList.add("hide");
 				}
-				return this.text_response;
-			}
-			clearAllClick() {
-				this.text_response = "0";
-				this.one_param = "";
-				this.two_param = "";
-				this.action = "";
-				this.response = 0;
-				return this.text_response;
-			}
-			eraseClick() {
-				if (this.text_response[this.text_response.length - 1] < '0' || this.text_response[this.text_response.length - 1] > '9') {
-					this.action = '';
-				}
-				this.text_response = this.text_response.substring(0, this.text_response.length - 1);
-				return this.text_response;
-			}
-		}
-
-		let calc = new Calculator();
-
-		for (let i = 0; i <= 9; i++) { document.getElementById("num" + i).addEventListener('click', function () { document.getElementById('response').value = calc.digitClick(i) }, false); }
-		document.getElementById('point').onclick = function () { document.getElementById('response').value = calc.pointClick() };
-		document.getElementById('addition').onclick = function () { document.getElementById('response').value = calc.actionClick('addition') };
-		document.getElementById('subtraction').onclick = function () { document.getElementById('response').value = calc.actionClick('subtraction') };
-		document.getElementById('division').onclick = function () { document.getElementById('response').value = calc.actionClick('division') };
-		document.getElementById('multiplication').onclick = function () { document.getElementById('response').value = calc.actionClick('multiplication') };
-		document.getElementById('mod').onclick = function () { document.getElementById('response').value = calc.actionClick('mod') };
-		document.getElementById('sign').onclick = function () { document.getElementById('response').value = calc.signClick() };
-		document.getElementById('equal').onclick = function () { document.getElementById('response').value = calc.equalClick() };
-		document.getElementById('sqrt').onclick = function () { document.getElementById('response').value = calc.funcMathClick('sqrt') };
-		document.getElementById('sqr').onclick = function () { document.getElementById('response').value = calc.funcMathClick('sqr') };
-		document.getElementById('onediv').onclick = function () { document.getElementById('response').value = calc.funcMathClick('onediv') };
-		document.getElementById('clear').onclick = function () { document.getElementById('response').value = calc.clearClick() };
-		document.getElementById('clearall').onclick = function () { document.getElementById('response').value = calc.clearAllClick() };
-		document.getElementById('erase').onclick = function () { document.getElementById('response').value = calc.eraseClick() };
-
-		document.getElementById('settings').onclick = function () {
-			if (document.getElementById("menu").classList.contains("hide") || document.getElementById("menu").classList.contains("starthide")) {
-				document.getElementById("menu").classList.remove("starthide");
-				document.getElementById("menu").classList.remove("hide");
-				document.getElementById("menu").classList.add("show");
-			}
-			else {
-				document.getElementById("menu").classList.remove("show");
-				document.getElementById("menu").classList.add("hide");
-			}
-		};
-
-		document.addEventListener('click', function (event) {
-			let jsonObject = { Key: 'click', Value: event.target.name || event.target.id || event.target.tagName || "Unkown" };
-			window.chrome.webview.postMessage(jsonObject);
-		});
-	</script>
-</body>
-</html>
+			};
+		</script>
+	</body>
+	</html>
