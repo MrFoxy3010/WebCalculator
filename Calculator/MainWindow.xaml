@@ -6,8 +6,8 @@
         xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
         xmlns:local="clr-namespace:Calculator"
         mc:Ignorable="d"
-        Title="Calculator" Height="740" Width="510" Icon="/output-onlinepngtools.png">
+        Title="WebCalculator" Height="740" Width="510" Icon="/output-onlinepngtools.png" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None">
     <Grid>
-        <wv2:WebView2 x:Name="webView" Initialized="wv_Initialized"/>
+        <wv2:WebView2  x:Name="webView" Initialized="wv_Initialized" WebMessageReceived="webView_WebMessageReceived"/>
     </Grid>
 </Window>
