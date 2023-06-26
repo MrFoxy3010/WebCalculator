@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Calculator</title>
+	<style type="text/css">
+		body {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 100%;
+			height: 100vh;
+			margin: 0;
+			padding: 0;
+			overflow: hidden;
+			background: linear-gradient(to top left, #D97266 20%, #F07D8D 45%, #D966AF 90%);
+		}
+
+		.container {
+			width: 380px;
+			height: 600px;
+			border-radius: 20px;
+			background-color: rgba(255, 255, 255, 0.3);
+		}
+
+		.response {
+			display: flex;
+			justify-content: center;
+		}
+
+		.response input {
+			font-family: ‘Comic Sans MS’, cursive;
+			font-size: 20px;
+			padding: 10px;
+			border: 0px;
+			border-radius: 10px;
+			height: 50px;
+			width: 288px;
+			margin-top: 40px;
+			text-align: right;
+		}
+
+		.response input:focus {
+			outline-width: 0;
+		}
+
+		.buttons {
+			margin-top: 10px;
+			display: grid;
+			justify-content: center;
+			grid-template-columns: repeat(4, auto);
+			grid-template-rows: repeat(6, auto);
+		}
+
+		.buttons button {
+			cursor: pointer;
+			font-family: ‘Comic Sans MS’, cursive;
+			font-size: 20px;
+			width: 65px;
+			height: 60px;
+			border: 0px;
+			margin: 7px;
+			border-radius: 5px;
+		}
+
+		.buttons button:hover {
+			background-color: pink;
+			transition: 0.3s;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="response">
+			<input readonly type="input" value="0" id="response">
+		</div>
+		<div class="buttons">
+			<button id="mod">%</button>
+			<button id="clear">CE</button>
+			<button id="clearall">C</button>
+			<button id="erase">←</button>
+			<button id="onediv">1/x</button>
+			<button id="sqr">x²</button>
+			<button id="sqrt">√x</button>
+			<button id="division">÷</button>
+			<button id="num7">7</button>
+			<button id="num8">8</button>
+			<button id="num9">9</button>
+			<button id="multiplication">×</button>
+			<button id="num4">4</button>
+			<button id="num5">5</button>
+			<button id="num6">6</button>
+			<button id="subtraction">-</button>
+			<button id=num1>1</button>
+			<button id="num2">2</button>
+			<button id="num3">3</button>
+			<button id="addition">+</button>
+			<button id="sign">+/-</button>
+			<button id="num0">0</button>
+			<button id="point">,</button>
+			<button id="equal">=</button>
+		</div>
+	</div>
+	<script type="text/javascript">
+		let action = '', one_param = '', two_param = '', text_response = '0', response = 0;
+
+		for (let i = 0; i <= 9; i++) {
+			document.getElementById('num'+i).onclick = function() {
+				if (text_response == '0') {
+					text_response = i.toString();
+				}
+				else if (action == '') {
+					text_response += i;
+				}
+				else {
+					two_param += i;
+					text_response += i;
+				}
+				document.getElementById('response').value = text_response;
+			};
+		}
+
+		document.getElementById('point').onclick = function() {
+			let count_point = text_response.split('.').length - 1;
+			if (one_param === '' && count_point == 0) {
+				text_response += '.';
+			}
+			else if (two_param !== '') {
+				let count_point = two_param.split('.').length - 1;
+				if (count_point == 0) {
+					text_response += '.';
+					two_param += '.';
+				}
+			}
+			document.getElementById('response').value = text_response;
+		};
+
+		function setAction(type) {
+			switch (action) {
+				case 'addition':
+					response = parseFloat(one_param) + parseFloat(two_param);
+					break;
+				case 'subtraction':
+					response = parseFloat(one_param) - parseFloat(two_param);
+					break;
+				case 'division':
+					response = parseFloat(one_param) / parseFloat(two_param);
+					break;
+				case 'multiplication':
+					response = parseFloat(one_param) * parseFloat(two_param);
+					break;
+				case 'mod':
+					response = parseFloat(one_param) % parseFloat(two_param);
+					break;
+			}
+			one_param = text_response;
+			if (action != '') {
+				one_param = response.toString();
+				text_response = one_param;
+			}
+			two_param = '';
+			switch (type) {
+				case 'addition':
+					text_response += '+';
+					break;
+				case 'subtraction':
+					text_response += '-';
+					break;
+				case 'division':
+					text_response += '÷';
+					break;
+				case 'multiplication':
+					text_response += '×';
+					break;
+				case 'mod':
+					text_response += '%';
+					break;
+			}
+			action = type;
+			document.getElementById('response').value = text_response;
+		}
+
+		document.getElementById('addition').onclick = function() { setAction('addition') };
+		document.getElementById('subtraction').onclick = function() { setAction('subtraction') };
+		document.getElementById('division').onclick = function() { setAction('division') };
+		document.getElementById('multiplication').onclick = function() { setAction('multiplication') };
+		document.getElementById('mod').onclick = function() { setAction('mod') };
+		document.getElementById('sign').onclick = function() { 
+			if (text_response[0] != '-') {
+				text_response = '-' + text_response;
+			}
+			else {
+				text_response = text_response.slice(1);
+			}
+			document.getElementById('response').value = text_response;
+		};
+		document.getElementById('equal').onclick = function() { 
+			switch (action) {
+				case 'addition':
+					response = parseFloat(one_param) + parseFloat(two_param);
+					break;
+				case 'subtraction':
+					response = parseFloat(one_param) - parseFloat(two_param);
+					break;
+				case 'division':
+					response = parseFloat(one_param) / parseFloat(two_param);
+					break;
+				case 'multiplication':
+					response = parseFloat(one_param) * parseFloat(two_param);
+					break;
+				case 'mod':
+					response = parseFloat(one_param) % parseFloat(two_param);
+					break;
+			}
+			one_param = '';
+			two_param = '';
+			text_response = response.toString();
+			action = '';	
+			document.getElementById('response').value = text_response;
+		};
+		function leftFunction(type) {
+			if (one_param === '') {
+				switch (type) {
+					case 'sqrt': 
+						one_param = Math.sqrt(parseFloat(text_response)).toString();
+						break;
+					case 'sqr':
+						one_param = (parseFloat(text_response) * parseFloat(text_response)).toString();
+						break;
+					case 'onediv':
+						one_param = (1 / parseFloat(text_response)).toString();
+						break;
+				}
+				text_response = one_param;
+				one_param = '';
+			}
+			else {
+				text_response = text_response.substring(0, text_response.length - two_param.length);
+				switch (type) {
+					case 'sqrt': 
+						two_param = Math.sqrt(parseFloat(two_param)).toString();
+						break;
+					case 'sqr':
+						two_param = (parseFloat(two_param) * parseFloat(two_param)).toString();
+						break;
+					case 'onediv':
+						two_param = (1 / parseFloat(two_param)).toString();
+						break;
+				}
+				text_response += two_param;
+			}
+			document.getElementById('response').value = text_response;
+		}
+		document.getElementById('sqrt').onclick = function() { leftFunction('sqrt'); };
+		document.getElementById('sqr').onclick = function() { leftFunction('sqr'); };
+		document.getElementById('onediv').onclick = function() { leftFunction('onediv'); };
+		document.getElementById('clear').onclick = function() { 
+			text_response = text_response.substring(0, text_response.length - two_param.length);
+			two_param = '';
+			document.getElementById('response').value = text_response;
+		};
+		document.getElementById('clearall').onclick = function() { 
+			text_response = '0';
+			one_param = '';
+			two_param = '';
+			action = '';
+			response = 0;
+			document.getElementById('response').value = text_response;
+		};
+		document.getElementById('erase').onclick = function() { 
+			if (text_response[text_response.length - 1] < '0' || text_response[text_response.length - 1] > '9') {
+				action = '';
+			}
+			text_response = text_response.substring(0, text_response.length - 1);
+			document.getElementById('response').value = text_response;
+		};
+	</script>
+</body>
+</html>

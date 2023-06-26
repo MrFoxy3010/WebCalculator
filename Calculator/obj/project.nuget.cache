@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "fOWyAbJmgeMb7WV2IpgAp2Jn1pAMrOOJduggc7K8Zw/LEKbu0tfbgjSs7nemZvIwO4C7ypOYVIIXECUM/Xzz4w==",
+  "success": true,
+  "projectFilePath": "E:\\Projects\\Programs\\Calculator\\Calculator\\Calculator.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\focki\\.nuget\\packages\\microsoft.web.webview2\\1.0.1823.32\\microsoft.web.webview2.1.0.1823.32.nupkg.sha512"
+  ],
+  "logs": []
+}

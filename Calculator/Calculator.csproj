@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+    <ApplicationIcon>output-onlinepngtools.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="output-onlinepngtools.png" />
+    <None Remove="png-transparent-computer-icons-calculator-symbol-calculation-calculator-purple-blue-electronics.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="output-onlinepngtools.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.1823.32" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="output-onlinepngtools.png" />
+  </ItemGroup>
+
+</Project>
