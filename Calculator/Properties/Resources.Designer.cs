@@ -81,9 +81,9 @@ namespace Calculator.Properties {
         ///		}
         ///
         ///		.container {
-        ///			width: 380px;
-        ///			height: 600px;
-        ///			border-ra [остаток строки не уместился]&quot;;.
+        ///			display: grid;
+        ///			justify-content: center;
+        ///	 [остаток строки не уместился]&quot;;.
         /// </summary>
         public static string index {
             get {

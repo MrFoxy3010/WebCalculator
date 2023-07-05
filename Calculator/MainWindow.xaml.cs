@@ -33,8 +33,8 @@ namespace Calculator
 			var opts = new CoreWebView2EnvironmentOptions { AdditionalBrowserArguments = @"--enable-features=""msWebView2EnableDraggableRegions""" };
 			var webView2Environment = await CoreWebView2Environment.CreateAsync(null, null, opts);
 			await webView.EnsureCoreWebView2Async(webView2Environment);
-			webView.CoreWebView2.Settings.AreBrowserAcceleratorKeysEnabled = false;
-			webView.CoreWebView2.Settings.AreDefaultContextMenusEnabled = false;
+			//webView.CoreWebView2.Settings.AreBrowserAcceleratorKeysEnabled = false;
+			//webView.CoreWebView2.Settings.AreDefaultContextMenusEnabled = false;
 			webView.CoreWebView2.NavigateToString(Resource.index);
 			webView.Focus();
 		}
