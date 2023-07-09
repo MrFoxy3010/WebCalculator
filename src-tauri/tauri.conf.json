@@ -1,0 +1,57 @@
+{
+  "build": {
+    "beforeDevCommand": "npm run dev",
+    "beforeBuildCommand": "npm run build",
+    "devPath": "http://localhost:1420",
+    "distDir": "../dist",
+    "withGlobalTauri": false
+  },
+  "package": {
+    "productName": "WebCalculator",
+    "version": "0.3.0"
+  },
+  "tauri": {
+    "allowlist": {
+      "all": false,
+      "shell": {
+        "all": false,
+        "open": true
+      }
+    },
+    "bundle": {
+      "active": true,
+      "targets": "all",
+      "identifier": "ru.webcalculator.myapp",
+      "icon": [
+        "icons/icon.ico"
+      ]
+    },
+    "security": {
+      "csp": null
+    },
+    "allowlist": {
+      "window": {
+        "all": false,
+        "close": true,
+        "hide": true,
+        "maximize": true,
+        "unmaximize": true,
+        "center": true,
+        "startDragging": true
+      }
+    },
+    "windows": [
+      {
+        "fullscreen": false,
+        "resizable": true,
+        "decorations": false,
+        "title": "WebCalculator",
+        "acceptFirstMouse": true,
+        "minWidth": 510,
+        "minHeight": 740,
+        "width": 510,
+        "height": 740
+      }
+    ]
+  }
+}
